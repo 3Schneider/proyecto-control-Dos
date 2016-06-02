@@ -95,10 +95,17 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="InserProduccion.aspx" />
+    <Content Include="InsertarUsuario.aspx" />
+    <Content Include="InsertEquipoBombeo.aspx" />
+    <Content Include="MostrarEquipoBomb.aspx" />
+    <Content Include="MostrarProduccion.aspx" />
+    <Content Include="MostrarUsuario.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="ProduccionEquipo.aspx" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -113,10 +120,65 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InserProduccion.aspx.cs">
+      <DependentUpon>InserProduccion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InserProduccion.aspx.designer.cs">
+      <DependentUpon>InserProduccion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InsertarUsuario.aspx.cs">
+      <DependentUpon>InsertarUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InsertarUsuario.aspx.designer.cs">
+      <DependentUpon>InsertarUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InsertEquipoBombeo.aspx.cs">
+      <DependentUpon>InsertEquipoBombeo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InsertEquipoBombeo.aspx.designer.cs">
+      <DependentUpon>InsertEquipoBombeo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MostrarEquipoBomb.aspx.cs">
+      <DependentUpon>MostrarEquipoBomb.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MostrarEquipoBomb.aspx.designer.cs">
+      <DependentUpon>MostrarEquipoBomb.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MostrarProduccion.aspx.cs">
+      <DependentUpon>MostrarProduccion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MostrarProduccion.aspx.designer.cs">
+      <DependentUpon>MostrarProduccion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MostrarUsuario.aspx.cs">
+      <DependentUpon>MostrarUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MostrarUsuario.aspx.designer.cs">
+      <DependentUpon>MostrarUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProduccionEquipo.aspx.cs">
+      <DependentUpon>ProduccionEquipo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProduccionEquipo.aspx.designer.cs">
+      <DependentUpon>ProduccionEquipo.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LayerBussinnesControl\LayerBusinness.csproj">
+      <Project>{dbebc9b8-886e-4b60-9119-f1a6d1c09658}</Project>
+      <Name>LayerBusinness</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
