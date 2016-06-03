@@ -18,7 +18,7 @@ namespace LayerData
         public LayerDataControl() { }
 
         //metodo  insertar empleado para enlazar con el stor procidios
-        public int InsertarUsuario(Int64 IdCodigo, string Apellidos, string Nombre, DateTime FechaNacimiento,Int64 CargoEmpleado, double NumeroTelefono,string Email)
+        public int InsertarUsuario(Int64 IdCodigo, string Apellidos, string Nombre, DateTime FechaNacimiento, Int64 CargoEmpleado, double NumeroTelefono, string Email)
         {
             using (SqlConnection cnx = new SqlConnection(strconn))
             {
@@ -34,7 +34,7 @@ namespace LayerData
                     OrdenSql.Parameters.AddWithValue("@Nombres", Nombre);
                     OrdenSql.Parameters.AddWithValue("@FechaNacimiento", FechaNacimiento);
                     OrdenSql.Parameters.AddWithValue("@CargoEmpleado", CargoEmpleado);
-                    OrdenSql.Parameters.AddWithValue("@NumeroTelefono",NumeroTelefono);
+                    OrdenSql.Parameters.AddWithValue("@NumeroTelefono", NumeroTelefono);
                     OrdenSql.Parameters.AddWithValue("@Email", Email);
 
                     return OrdenSql.ExecuteNonQuery();
@@ -83,7 +83,7 @@ namespace LayerData
 
         //metodo  Insertar Produccion para enlazar con el stor procidios
         //public int InsertarProduccion(Int64 IdReport, DateTime FechaServici, string TipoBomb,string NombreObr, string NumeroPedid, double MetrosColocado, DateTime HoraInici, DateTime HoraFin)
-          public int InsertarProduccion(Int64 IdReport, double IdOperar, DateTime FechaServici, string TipoBomb,double CodigoBomb, String NombreObr, string NumeroPedid, double MetrosColocado, DateTime HoraInici, DateTime HoraFin, DateTime FechaFinal)
+        public int InsertarProduccion(Int64 IdReport, double IdOperar, DateTime FechaServici, string TipoBomb, double CodigoBomb, String NombreObr, string NumeroPedid, double MetrosColocado, DateTime HoraInici, DateTime HoraFin, DateTime FechaFinal)
         {
             using (SqlConnection cnxp = new SqlConnection(strconn))
             {
@@ -96,16 +96,16 @@ namespace LayerData
                 {
                     //OrdenSql.Parameters.AddWithValue("@IdReporte",IdReport);
                     OrdenSql.Parameters.AddWithValue("@IdReporte", IdReport);
-                    OrdenSql.Parameters.AddWithValue("@IdOperario",IdOperar);
+                    OrdenSql.Parameters.AddWithValue("@IdOperario", IdOperar);
                     OrdenSql.Parameters.AddWithValue("@FechaServicio", FechaServici);
                     OrdenSql.Parameters.AddWithValue("@TipoBomba", TipoBomb);
-                    OrdenSql.Parameters.AddWithValue("@CodigoBomba",CodigoBomb );
+                    OrdenSql.Parameters.AddWithValue("@CodigoBomba", CodigoBomb);
                     OrdenSql.Parameters.AddWithValue("@NombreObra", NombreObr);
                     OrdenSql.Parameters.AddWithValue("@NumeroPedido", NumeroPedid);
                     OrdenSql.Parameters.AddWithValue("@MetrosColocados", MetrosColocado);
                     OrdenSql.Parameters.AddWithValue("@HoraInicio", HoraInici);
                     OrdenSql.Parameters.AddWithValue("@HoraFin", HoraFin);
-                    OrdenSql.Parameters.AddWithValue("@FechaFinal",FechaFinal);
+                    OrdenSql.Parameters.AddWithValue("@FechaFinal", FechaFinal);
 
                     return OrdenSql.ExecuteNonQuery();
                 }
@@ -214,18 +214,54 @@ namespace LayerData
         }
 
         // Metodo MostrarProduccion() para enlazar con el SP.
-        public DataTable MostrarProduccionUsuario()
+        //public DataTable MostrarServiciosXusuario()
+        //{
+        //    using (SqlConnection cnx = new SqlConnection(strconn))
+        //    {
+        //        cnx.Open();
+        //        SqlDataAdapter dAd = new SqlDataAdapter("SpServiciosXusuario", cnx);
+        //        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        //        dAd.par
+
+        //        DataSet ds = new DataSet();
+        //        try
+        //        {
+        //            dAd.Fill(ds, "TableServicioXUsuario");
+        //            return ds.Tables["TableServicioXUsuario"];
+        //        }
+        //        catch (Exception)
+        //        {
+        //            throw;
+        //        }
+        //        finally
+        //        {
+        //            cnx.Close();
+        //            cnx.Dispose();
+        //            dAd.Dispose();
+        //            ds.Dispose();
+        //        }
+        //    }
+        //}
+
+        public DataSet MostrarServiciosXusuario(Int64 PIdOperario, DateTime PFechaServicio, DateTime PFechaFinal)
         {
             using (SqlConnection cnx = new SqlConnection(strconn))
             {
                 cnx.Open();
-                SqlDataAdapter dAd = new SqlDataAdapter("SpConsultaProduccionXusuario", cnx);
-                dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
-                DataSet ds = new DataSet();
+                SqlCommand com = new SqlCommand("SpServiciosXusuario", cnx);
+                com.CommandType = CommandType.StoredProcedure;
+                com.Parameters.AddWithValue("@IdOperario", PIdOperario);
+                com.Parameters.AddWithValue("@FechaServicio", PFechaServicio);
+                com.Parameters.AddWithValue("@FechaFinal", PFechaFinal);
+                SqlDataAdapter ad = new SqlDataAdapter(com);
+
+
+                DataSet d = new DataSet();
+
                 try
                 {
-                    dAd.Fill(ds, "TableProduccUsuario");
-                    return ds.Tables["TableProduccUsuario"];
+                    ad.Fill(d);
+                    return d;
                 }
                 catch (Exception)
                 {
@@ -235,9 +271,13 @@ namespace LayerData
                 {
                     cnx.Close();
                     cnx.Dispose();
-                    dAd.Dispose();
-                    ds.Dispose();
+                    com.Dispose();
+                    d.Dispose();
                 }
+
+
+
+                return d;
             }
         }
     }
